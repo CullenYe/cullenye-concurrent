@@ -14,17 +14,25 @@ public class CompareTest {
         this.name = name;
     }
 
+    public String get(){
+        return threadLocal.get();
+    }
+
+    public String getName(){
+        return name;
+    }
+
     public static void main(String[] args) {
         CompareTest compareTest = new CompareTest();
         new Thread(() -> {
             compareTest.set("hello", "world");
-            System.out.println(compareTest.threadLocal.get());
-            System.out.println(compareTest.name);
+            System.out.println(compareTest.get());
+            System.out.println(compareTest.getName());
         }).start();
 
         new Thread(() -> {
-            System.out.println(compareTest.threadLocal.get());
-            System.out.println(compareTest.name);
+            System.out.println(compareTest.get());
+            System.out.println(compareTest.getName());
         }).start();
     }
 
