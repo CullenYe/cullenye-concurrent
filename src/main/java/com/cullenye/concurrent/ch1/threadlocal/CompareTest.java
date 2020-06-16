@@ -1,4 +1,4 @@
-package com.cullenye.concurrent.ch1.base.threadlocal;
+package com.cullenye.concurrent.ch1.threadlocal;
 
 /**
  * ThreadLocal成员变量和普通成员变量的对比

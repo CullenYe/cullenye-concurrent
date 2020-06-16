@@ -1,4 +1,4 @@
-package com.cullenye.concurrent.ch1.base.threadlocal;
+package com.cullenye.concurrent.ch1.threadlocal;
 
 public class UseThreadLocal {
     private static ThreadLocal<Integer> threadLocal = new ThreadLocal<Integer>(){

@@ -1,4 +1,4 @@
-package com.cullenye.concurrent.ch1.base.waitnotify;
+package com.cullenye.concurrent.ch1.waitnotify;
 
 public class CheckExpress {
 

@@ -1,4 +1,4 @@
-package com.cullenye.concurrent.ch1.base.waitnotify;
+package com.cullenye.concurrent.ch1.waitnotify;
 
 /**
  * 快递实体
