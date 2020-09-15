@@ -13,7 +13,9 @@ import java.util.concurrent.RecursiveAction;
  */
 public class FindDirsFiles extends RecursiveAction {
 
-    // 当前任务需要搜寻的目录
+    /**
+     * 当前任务需要搜寻的目录
+     */
     private File path;
 
     public FindDirsFiles(File path) {

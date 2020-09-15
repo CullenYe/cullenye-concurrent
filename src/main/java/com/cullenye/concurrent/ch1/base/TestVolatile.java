@@ -1,5 +1,10 @@
 package com.cullenye.concurrent.ch1.base;
 
+/**
+ * 测试volatile
+ * @author yeguanhong
+ * @date 2020-09-15 19:15:29
+ */
 public class TestVolatile {
     public volatile int inc = 0;
 
@@ -20,9 +25,11 @@ public class TestVolatile {
             }.start();
         }
 
-        while(Thread.activeCount()>2)  //保证前面的线程都执行完
+        //保证前面的线程都执行完
+        while(Thread.activeCount()>2){
             System.out.println(Thread.currentThread().getName()+"继续等待："+Thread.activeCount());
-            Thread.yield();
+        }
+        Thread.yield();
         System.out.println(test.inc);
     }
 }

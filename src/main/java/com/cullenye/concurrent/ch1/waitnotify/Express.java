@@ -10,9 +10,13 @@ public class Express {
     // 快递起始位置
     static final String CITY = "ShangHai";
 
-    // 快递运输里程数
+    /**
+     * 快递运输里程数
+     */
     private int km;
-    // 快递到达的地点
+    /**
+     * 快递到达的地点
+     */
     private String site;
 
     Express(int km, String site) {

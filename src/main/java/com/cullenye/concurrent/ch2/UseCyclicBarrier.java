@@ -5,14 +5,23 @@ import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CyclicBarrier;
 
+/**
+ * 使用CyclicBarrier
+ * @author yeguanhong
+ * @date 2020-09-15 20:10:49
+ */
 public class UseCyclicBarrier {
 
     private static CyclicBarrier cyclicBarrier = new CyclicBarrier(5,new CollectThread());
 
-    //存放子线程工作结果的容器
+    /**
+     * 存放子线程工作结果的容器
+     */
     private static ConcurrentHashMap<String,Long> resultMap = new ConcurrentHashMap<>();
 
-    //工作子线程
+    /**
+     * 工作子线程
+     */
     private static class SubThread implements Runnable{
 
         @Override
@@ -38,7 +47,9 @@ public class UseCyclicBarrier {
         }
     }
 
-    //屏障开放后执行的线程，将容器中所有工作子线程的工作结果进行字符串拼接，并输出
+    /**
+     * 屏障开放后执行的线程，将容器中所有工作子线程的工作结果进行字符串拼接，并输出
+     */
     private static class CollectThread implements Runnable{
 
         @Override

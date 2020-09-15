@@ -1,5 +1,10 @@
 package com.cullenye.concurrent.ch1.base;
 
+/**
+ * 测试synchronized
+ * @author yeguanhong
+ * @date 2020-09-15 19:15:01
+ */
 public class TestSynchronized extends Thread{
 
     private static int count = 0;

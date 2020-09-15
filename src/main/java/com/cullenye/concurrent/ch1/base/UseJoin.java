@@ -1,5 +1,10 @@
 package com.cullenye.concurrent.ch1.base;
 
+/**
+ * 使用join
+ * @author yeguanhong
+ * @date 2020-09-15 19:29:21
+ */
 public class UseJoin {
 
     private static class JumpQeueue implements Runnable{

@@ -1,5 +1,10 @@
 package com.cullenye.concurrent.ch1.threadlocal;
 
+/**
+ * 使用ThreadLocal
+ * @author yeguanhong
+ * @date 2020-09-15 20:07:47
+ */
 public class UseThreadLocal {
     private static ThreadLocal<Integer> threadLocal = new ThreadLocal<Integer>(){
         @Override

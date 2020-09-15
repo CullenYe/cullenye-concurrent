@@ -2,6 +2,11 @@ package com.cullenye.concurrent.ch2;
 
 import java.util.concurrent.CountDownLatch;
 
+/**
+ * 使用CountDownLatch
+ * @author yeguanhong
+ * @date 2020-09-15 20:10:21
+ */
 public class UseCountDownLatch {
 
     private static CountDownLatch countDownLatch = new CountDownLatch(6);
@@ -22,7 +27,9 @@ public class UseCountDownLatch {
 
     }
 
-    //业务线程，需要等待初始化线程完成后才进行工作
+    /**
+     * 业务线程，需要等待初始化线程完成后才进行工作
+     */
     private static class BusinessThread implements Runnable{
         @Override
         public void run() {

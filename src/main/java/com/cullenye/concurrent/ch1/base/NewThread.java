@@ -4,6 +4,11 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 
+/**
+ * 新建线程
+ * @author yeguanhong
+ * @date 2020-09-15 19:14:11
+ */
 public class NewThread {
 
     private static class  MyThread extends Thread{
