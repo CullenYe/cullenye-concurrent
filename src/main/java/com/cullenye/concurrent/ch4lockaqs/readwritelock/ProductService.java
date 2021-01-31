@@ -1,4 +1,4 @@
-package com.cullenye.concurrent.cha4lockaqs.readwritelock;
+package com.cullenye.concurrent.ch4lockaqs.readwritelock;
 
 /**
  * 商品的服务的接口

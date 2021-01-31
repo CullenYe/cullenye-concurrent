@@ -1,4 +1,4 @@
-package com.cullenye.concurrent.cha4lockaqs.readwritelock;
+package com.cullenye.concurrent.ch4lockaqs.readwritelock;
 
 /**
  * 用内置锁来实现商品服务接口

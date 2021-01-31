@@ -1,4 +1,4 @@
-package com.cullenye.concurrent.cha4lockaqs.readwritelock;
+package com.cullenye.concurrent.ch4lockaqs.readwritelock;
 
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;

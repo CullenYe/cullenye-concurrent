@@ -1,4 +1,4 @@
-package com.cullenye.concurrent.cha4lockaqs.aqs;
+package com.cullenye.concurrent.ch4lockaqs.aqs;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.AbstractQueuedSynchronizer;
@@ -6,46 +6,51 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 
 /**
- * 实现自己的可重入锁
+ * 实现自己的独占锁
  * @author yeguanhong
- * @date 2020-10-01 20:58:30
+ * @date 2020-10-01 18:16:05
  */
-public class ReenterSelfLock implements Lock {
+public class SelfLock implements Lock {
 
+    /**
+     * 同步器的定义
+     */
     private static class Sync extends AbstractQueuedSynchronizer{
-
+        /**
+         * 获得所
+         */
         @Override
         protected boolean tryAcquire(int arg) {
+            // 通过CAS原子操作修改状态，如果操作成功，说明当前线程抢到了锁
             if(compareAndSetState(0,1)){
+                // 设置当前拥有独占访问的线程
                 setExclusiveOwnerThread(Thread.currentThread());
-                return true;
-            }else if(getExclusiveOwnerThread() == Thread.currentThread()){
-                setState(getState()+1);
                 return true;
             }
             return false;
         }
 
+        /**
+         * 释放锁
+         */
         @Override
         protected boolean tryRelease(int arg) {
-            if(getExclusiveOwnerThread() != Thread.currentThread()){
+            if(getState() == 0){
+                // 当前锁的状态不对
                 throw new IllegalMonitorStateException();
             }
-            if(getState() == 0){
-                throw new IllegalMonitorStateException();
-            }
-            setState(getState()-1);
-            if(getState() == 0){
-                setExclusiveOwnerThread(null);
-            }
+            setExclusiveOwnerThread(null);
+            // 因为当前线程已经获得锁，所以不需要使用CAS修改涨停
+            setState(0);
             return true;
         }
 
         @Override
         protected boolean isHeldExclusively() {
-            return getState() > 0;
+            return getState() == 1;
         }
 
+        // 返回一个Condition，每个condition都包含了一个condition队列
         Condition newCondition(){
             return new ConditionObject();
         }
@@ -84,14 +89,20 @@ public class ReenterSelfLock implements Lock {
 
     @Override
     public Condition newCondition() {
-        return newCondition();
+        return sync.newCondition();
     }
 
-    public boolean isLocked() {
+    /**
+     * 判断锁是否被占用
+     */
+    public boolean isLock(){
         return sync.isHeldExclusively();
     }
 
-    public boolean hasQueuedThreads() {
+    /**
+     * 判断有没有线程在等待许可
+     */
+    public boolean hasQueuedThreads(){
         return sync.hasQueuedThreads();
     }
 }

@@ -1,4 +1,4 @@
-package com.cullenye.concurrent.cha4lockaqs.aqs;
+package com.cullenye.concurrent.ch4lockaqs.aqs;
 
 import java.util.concurrent.locks.Lock;
 

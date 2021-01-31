@@ -1,7 +1,6 @@
-package com.cullenye.concurrent.cha4lockaqs.aqs;
+package com.cullenye.concurrent.ch4lockaqs.aqs;
 
 import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * 测试自己的独占锁
