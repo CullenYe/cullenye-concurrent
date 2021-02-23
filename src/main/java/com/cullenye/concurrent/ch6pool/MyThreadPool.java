@@ -32,9 +32,8 @@ public class MyThreadPool {
     }
 
     public MyThreadPool(int task_count,int work_number){
-        if(work_number < 0){
-            work_number = WORK_COUNT;
-        }
+        if(work_number <= 0) work_number = WORK_COUNT;
+        if(task_count <= 0) task_count = 100;
         this.taskQueue = new ArrayBlockingQueue<>(task_count);
         this.work_number = work_number;
         workThreads = new WorkThread[work_number];
@@ -45,6 +44,20 @@ public class MyThreadPool {
         }
     }
 
+    /**
+     * 放入任务，但只是加入队列
+     */
+    public void execute(Runnable task){
+        try {
+            taskQueue.put(task);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 销毁线程池
+     */
     public void destroy(){
         System.out.println("准备关闭线程池");
         for(int i=0;i<workThreads.length;i++){
@@ -54,6 +67,12 @@ public class MyThreadPool {
         }
         // 清空任务队列
         taskQueue.clear();
+    }
+
+    @Override
+    public String toString() {
+        return "WorkThread number:"+work_number
+                +" wait task number:"+taskQueue.size();
     }
 
     /**
@@ -67,30 +86,20 @@ public class MyThreadPool {
                 try {
                     r = taskQueue.take();
                     if(r != null){
-                        System.out.println(getId() + "准备执行");
+                        System.out.println(getId() + "准备执行" + ((TestMyThreadPool.MyTask)r).getName());
                         r.run();
                     }
                     // 执行完后手动置为空
                     r = null;
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    // 因为没有任务时taskQueue.take()会阻塞，此时如果销毁线程池，关闭工作线程，会抛异常，所以不打印异常
+                    //e.printStackTrace();
                 }
             }
         }
 
         /**
-         * 放入任务，但只是加入队列
-         */
-        public void execute(Runnable task){
-            try {
-                taskQueue.put(task);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
-        /**
-         * 关闭线程池
+         * 停止工作线程
          */
         public void stopWorker() {
             interrupt();
