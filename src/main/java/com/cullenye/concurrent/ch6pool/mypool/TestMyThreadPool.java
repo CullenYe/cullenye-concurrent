@@ -1,4 +1,4 @@
-package com.cullenye.concurrent.ch6pool;
+package com.cullenye.concurrent.ch6pool.mypool;
 
 import java.util.Random;
 
