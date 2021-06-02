@@ -1,5 +1,7 @@
 package com.cullenye.concurrent.ch8a.vo;
 
+import com.cullenye.concurrent.ch8a.CheckJobProcessor;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.LinkedBlockingDeque;
@@ -21,6 +23,10 @@ public class JobInfo<R> {
      */
     private final int jobLength;
     /**
+     * 处理工作中任务的处理器
+     */
+    private final ITaskProcesser<?,?> taskProcesser;
+    /**
      * 任务的成功次数
      */
     private AtomicInteger successCount;
@@ -36,10 +42,18 @@ public class JobInfo<R> {
      * 保留的工作的结果信息供查询的时长
      */
     private final long expireTime;
-    /**
-     * 处理工作中任务的处理器
-     */
-    private final ITaskProcesser<?,?> taskProcesser;
+
+    private static CheckJobProcessor checkJobProcessor = CheckJobProcessor.getInstance();
+
+    public JobInfo(String jobName,int jobLength,ITaskProcesser<?,?> taskProcesser,long expireTime){
+        this.jobName = jobName;
+        this.jobLength = jobLength;
+        this.taskProcesser = taskProcesser;
+        this.successCount = new AtomicInteger(0);
+        this.taskProcessCount = new AtomicInteger(0);
+        this.taskDetailQueues = new LinkedBlockingDeque<TaskResult<R>>(jobLength);
+        this.expireTime = expireTime;
+    }
 
     /**
      * 提供工作中每个任务的处理结果,
@@ -70,7 +84,7 @@ public class JobInfo<R> {
         taskDetailQueues.addLast(taskResult);
         // 如果工作中的任务全部执行完，将工作的结果放入定时缓存，到期后清除
         if(taskProcessCount.get() == jobLength){
-
+            checkJobProcessor.putJob(jobName,expireTime);
         }
     }
 }
