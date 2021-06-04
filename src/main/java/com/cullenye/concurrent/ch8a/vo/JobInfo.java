@@ -55,6 +55,10 @@ public class JobInfo<R> {
         this.expireTime = expireTime;
     }
 
+    public ITaskProcesser<?, ?> getTaskProcesser() {
+        return taskProcesser;
+    }
+
     /**
      * 提供工作中每个任务的处理结果,
      * 上次查询和本次查询之间，可能有多个任务已完成，所以返回List
@@ -86,5 +90,13 @@ public class JobInfo<R> {
         if(taskProcessCount.get() == jobLength){
             checkJobProcessor.putJob(jobName,expireTime);
         }
+    }
+
+    /**
+     * 提供工作的整体进度信息
+     */
+    public String getTotalProcess() {
+        return "Success["+successCount.get()+"]/Current["+taskProcessCount.get()
+                +"] Total["+jobLength+"]";
     }
 }
