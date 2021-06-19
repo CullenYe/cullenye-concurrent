@@ -1,4 +1,4 @@
-package com.cullenye.concurrent.cha10.lambda;
+package com.cullenye.concurrent.cha10java8.lambda;
 
 /**
  * Lambda表达式的隐性final语义

@@ -1,4 +1,4 @@
-package com.cullenye.concurrent.cha10.stream;
+package com.cullenye.concurrent.cha10java8.stream;
 
 import java.util.Arrays;
 import java.util.IntSummaryStatistics;

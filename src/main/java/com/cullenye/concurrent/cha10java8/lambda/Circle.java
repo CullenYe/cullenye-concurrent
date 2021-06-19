@@ -1,4 +1,4 @@
-package com.cullenye.concurrent.cha10.lambda;
+package com.cullenye.concurrent.cha10java8.lambda;
 
 /**
  * 类说明：实体类

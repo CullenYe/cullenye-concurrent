@@ -1,4 +1,4 @@
-package com.cullenye.concurrent.cha10;
+package com.cullenye.concurrent.cha10java8;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;

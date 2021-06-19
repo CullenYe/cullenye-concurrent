@@ -1,4 +1,4 @@
-package com.cullenye.concurrent.cha10.lambda;
+package com.cullenye.concurrent.cha10java8.lambda;
 
 import java.util.ArrayList;
 import java.util.List;
