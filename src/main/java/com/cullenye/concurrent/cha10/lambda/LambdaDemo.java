@@ -1,0 +1,82 @@
+package com.cullenye.concurrent.cha10.lambda;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Lambda使用示例
+ * @author yeguanhong
+ */
+public class LambdaDemo {
+
+    /**
+     * 定义挑选圆的行为接口
+     */
+    @FunctionalInterface
+    interface ChoiceCircle{
+        boolean getCircle(Circle circle);
+    }
+
+    /**
+     * 根据条件挑选出圆的方法
+     */
+    public static List<Circle> getCircleByChoice(List<Circle> circles,ChoiceCircle choiceCircle){
+        List<Circle> circleList = new ArrayList<>();
+        for(Circle circle:circles){
+            if(choiceCircle.getCircle(circle)){
+                circleList.add(circle);
+            }
+        }
+        return circleList;
+    }
+
+    public static void service(){
+
+        // 待处理的圆的集合
+        List<Circle> src = new ArrayList<>();
+
+        // 不使用Lambda
+        List<Circle> radiusTwos =  getCircleByChoice(src, new ChoiceCircle() {
+            @Override
+            public boolean getCircle(Circle circle) {
+                return circle.getRadius()==2;
+            }
+        });
+
+        List<Circle> reds =  getCircleByChoice(src, new ChoiceCircle() {
+            @Override
+            public boolean getCircle(Circle circle) {
+                return "Red".equals(circle.getColor());
+            }
+        });
+
+        // 使用Lambda
+        List<Circle> radiusTwos2 = getCircleByChoice(src,(Circle circle) -> circle.getRadius()==2);
+
+        List<Circle> reds2 = getCircleByChoice(src,(Circle circle) -> "Red".equals(circle.getColor()));
+
+        /*所以可以把Lambda表达式看成匿名内部类的一个简洁写法
+         * 在语法上，Lambda表达式包含三个部分:
+         * 参数列表，箭头，主体，比如：
+         *  (parameters) -> expression
+         *  或
+         *  (parameters) -> ｛statements;｝
+         *  */
+
+        /*Lambda表达式用在函数式接口上，
+        所谓函数式接口，是只定义了一个抽象方法的接口（Interface），
+        接口中是否有默认方法，不影响
+        注解@FunctionalInterface可以帮助我们在设计函数式接口时防止出错。
+        我们常用的Runnable,Callable都是函数式接口
+        JDK8中新增了几个函数式接口
+        Predicate<T> :
+        包含test方法，接受泛型的T，返回boolean，可以视为断言（检查）接口
+        Consumer<T> :
+        包含accept方法，接受泛型的T，无返回，可以视为数据消费接口
+        Function<T，R> :
+        包含apply方法，接受泛型的T，返回R，可以视为映射转换接口
+        当然新增的函数式接口不止这些
+        * */
+
+    }
+}
